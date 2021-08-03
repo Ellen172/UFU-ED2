@@ -48,7 +48,7 @@ int combinacoes(double valor_inicial, double valor, int comb, double moeda, doub
         cout << "if 1" << endl;
         return comb;
     }
-
+    
     moeda = trocaMoeda(moeda);
     return combinacoes(valor_inicial, valor_inicial, comb, moeda, moeda);
 
