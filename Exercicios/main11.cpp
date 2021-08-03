@@ -28,7 +28,7 @@ double trocaMoeda(double moeda){
     if(moeda == 0.1) return 0.05;
 }
 
-int combinacoes(double valor_inicial, double valor, int comb, double moeda, double moeda_inicial){
+int combinacoes(double valor_inicial, double valor, double moeda_inicial, double moeda, int comb){
     cout << "valor_inicial = " << valor_inicial << endl;
     cout << "valor = " << valor << endl;
     cout << "comb = " << comb << endl;
@@ -37,20 +37,32 @@ int combinacoes(double valor_inicial, double valor, int comb, double moeda, doub
 
     int cont=0;
     while(valor-moeda >= 0.00){
-        cout << "while" << endl;
         valor -= moeda;
         cont++;
     }
-    comb++;
     cout << cont << "x " << moeda << endl;
 
-    if(moeda == 0.05 && moeda_inicial == 0.05) {
-        cout << "if 1" << endl;
-        return comb;
+    if(moeda == 0.05) {
+        if(moeda_inicial == 0.05){
+            return comb+1;
+        } 
+
+        else {
+            moeda_inicial = trocaMoeda(moeda_inicial);
+            combinacoes(valor_inicial, valor_inicial, moeda_inicial, moeda_inicial, comb+1);
+        }
     }
-    
-    moeda = trocaMoeda(moeda);
-    return combinacoes(valor_inicial, valor_inicial, comb, moeda, moeda);
+
+    else {
+        if(cont == 1) {
+            // reinicia o valor e a moeda_inicial
+            moeda_inicial = trocaMoeda(moeda_inicial);
+            return combinacoes(valor_inicial, valor_inicial, moeda_inicial, moeda_inicial, comb+1);
+        }
+        if(cont > 1){
+            return combinacoes(valor_inicial, valor_inicial-moeda, moeda_inicial, trocaMoeda(moeda), comb+1);
+        }
+    }
 
 }
 
@@ -59,8 +71,7 @@ int main(){
     cin >> valor;
     while(valor > 0.0){
         double moeda_inicial = defineMoeda(valor);
-        int comb=0;
-        cout << "resposta = " << combinacoes(valor, valor, comb, moeda_inicial, moeda_inicial) << endl;
+        cout << "resposta = " << combinacoes(valor, valor, moeda_inicial, moeda_inicial, 0) << endl;
 
         cin >> valor;
     }
