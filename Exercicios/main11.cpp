@@ -40,6 +40,10 @@ int combinacoes(double valor_inicial, double valor, double moeda_inicial, double
     if(moeda == 0.05 && moeda_inicial == 0.05) {
         return comb;
     }
+
+    if(moeda > 0.05 && cont > 1){
+        return combinacoes(valor_inicial, valor_inicial-moeda, moeda_inicial, trocaMoeda(moeda), comb);
+    }
     
     moeda_inicial = trocaMoeda(moeda_inicial);
     return combinacoes(valor_inicial, valor_inicial, moeda_inicial, moeda_inicial, comb);
