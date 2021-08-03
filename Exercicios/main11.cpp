@@ -49,22 +49,9 @@ int combinacoes(double valor_inicial, double valor, int comb, double moeda, doub
         return comb;
     }
 
-    if(valor == 0 && cont > 1){
-        cout << "if 2" << endl;
-        valor = valor_inicial -= moeda;
-        moeda = trocaMoeda(moeda_inicial);
-        return combinacoes(valor_inicial, valor, comb, moeda, moeda);
-    }
+    moeda = trocaMoeda(moeda);
+    return combinacoes(valor_inicial, valor_inicial, comb, moeda, moeda);
 
-    if(valor == 0 && cont == 1) {
-        cout << "if 3" << endl;
-        moeda = trocaMoeda(moeda_inicial);
-        return combinacoes(valor_inicial, valor_inicial, comb, moeda, moeda);
-    }
-
-
-    cout << "else" << endl;
-    return combinacoes(valor_inicial, valor, comb, trocaMoeda(moeda), moeda_inicial);
 }
 
 int main(){
