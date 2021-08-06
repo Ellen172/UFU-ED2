@@ -54,12 +54,12 @@ int combinacoes(double valor_inicial, double valor, double moeda_inicial, double
         return combinacoes(valor_inicial, valor_inicial-moeda, moeda_inicial, trocaMoeda(moeda), comb);
     }
 
-    if(valor > 0){
+    if(valor > 0.00){
         cout << "if 3" << endl;
         return combinacoes(valor_inicial, valor, moeda_inicial, trocaMoeda(moeda), comb);
     }
     
-        cout << "else" << endl;
+    cout << "else" << endl;
     moeda_inicial = trocaMoeda(moeda_inicial);
     return combinacoes(valor_inicial, valor_inicial, moeda_inicial, moeda_inicial, comb);
 
