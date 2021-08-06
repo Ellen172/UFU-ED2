@@ -7,6 +7,8 @@ int menorTempo(int qtd_est, int qtd_trans, int *tarefa1, int *tarefa2, int *tran
     int tempo2=inicio[1];
     int linha=0, i=0;
 
+    cout << "qtd de trans = " << qtd_trans << endl;
+
     // tempo na linha 1
     linha = 1; i=0;
     while(i < qtd_est){
