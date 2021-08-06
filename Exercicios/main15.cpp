@@ -2,17 +2,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int menorTempo(int qtd_est, int *tarefa1, int *tarefa2, int *trans1, int *trans2, int *inicio, int *final, int menor){
-    int tempo1=inicio[0], tempo2=inicio[1], linha=0, i=0;
+int menorTempo(int qtd_est, int qtd_trans, int *tarefa1, int *tarefa2, int *trans1, int *trans2, int *inicio, int *final, int menor){
+    int tempo1=inicio[0];
+    int tempo2=inicio[1];
+    int linha=0, i=0;
 
     // tempo na linha 1
     linha = 1; i=0;
     while(i < qtd_est){
-        if(i == qtd_est-1){
-            if(linha == 1) tempo1 += tarefa1[i];
-            else tempo1 += tarefa2[i];
-        }
-        else {
+        if(i < qtd_trans){
             if(linha == 1){
                 tempo1 += tarefa1[i];
                 tempo1 += trans1[i];
@@ -24,7 +22,10 @@ int menorTempo(int qtd_est, int *tarefa1, int *tarefa2, int *trans1, int *trans2
                 linha = 1;
             }
         }
-        cout << "tempo 1 = " << tempo1 << endl;
+        else {
+            if(linha == 1) tempo1 += tarefa1[i];
+            else tempo1 += tarefa2[i];
+        }
         i++;
     }
     if(linha == 1) tempo1 += final[0];
@@ -34,11 +35,7 @@ int menorTempo(int qtd_est, int *tarefa1, int *tarefa2, int *trans1, int *trans2
     // tempo na linha 2
     linha = 2; i=0;
     while(i < qtd_est){
-        if(i == qtd_est-1){
-            if(linha == 1) tempo2 += tarefa1[i];
-            else tempo2 += tarefa2[i];
-        }
-        else {
+        if(i < qtd_trans) {
             if(linha == 1){
                 tempo2 += tarefa1[i];
                 tempo2 += trans1[i];
@@ -50,7 +47,10 @@ int menorTempo(int qtd_est, int *tarefa1, int *tarefa2, int *trans1, int *trans2
                 linha = 1;
             }
         }
-        cout << "tempo 2 = " << tempo2 << endl;
+        else{
+            if(linha == 1) tempo2 += tarefa1[i];
+            else tempo2 += tarefa2[i];
+        }
         i++;
     }
     if(linha == 1) tempo2 += final[0];
@@ -58,14 +58,16 @@ int menorTempo(int qtd_est, int *tarefa1, int *tarefa2, int *trans1, int *trans2
     cout << "tempo 2 = " << tempo2 << endl;
 
     // definindo menor tempo
-    if(tempo1 < tempo2) menor = tempo1;
-    else menor = tempo2;
+    if(tempo1 < menor) menor = tempo1;
+    if(tempo2 < menor) menor = tempo2;
 
-    return menor;
+    if(qtd_trans == 0) return menor;
+    return menorTempo(qtd_est, qtd_trans-1, tarefa1, tarefa2, trans1, trans2, inicio, final, menor);
+
 }
 
 int main(){
-    int n; // casos de test
+    int n; // casos de teste
     cout << "Digite a qtd de testes: ";
     cin >> n;
     while(n > 0){
@@ -101,7 +103,7 @@ int main(){
             cin >> final[l];
         }
 
-        cout << endl << "Menor tempo = " << menorTempo(qtd_est, tarefa1, tarefa2, trans1, trans2, inicio, final, 0) << endl;
+        cout << endl << "Menor tempo = " << menorTempo(qtd_est, qtd_est-1, tarefa1, tarefa2, trans1, trans2, inicio, final, 10000) << endl;
 
 
         n--;
