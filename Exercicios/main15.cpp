@@ -2,12 +2,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int menorTempo(int qtd_est, int qtd_trans, int pos, int *tarefa1, int *tarefa2, int *trans1, int *trans2, int inicio, int *final, int menor){
+int menorTempo(int qtd_est, int qtd_trans, int pos, int pulo, int *tarefa1, int *tarefa2, int *trans1, int *trans2, int inicio, int *final, int menor){
     int tempo=inicio;
-    int linha=0, i=0, pos_aux=pos, cont_trans=0;
+    int linha=0, i=0, pos_aux=pos, cont_trans=0, pulo_aux=pulo;
 
     cout << "qtd de trans = " << qtd_trans << endl;
     cout << "pos = " << pos << endl;
+    cout << "pulo = " << pulo << endl;
 
     // tempo na linha 1
     linha = 1; i=0;
@@ -18,7 +19,9 @@ int menorTempo(int qtd_est, int qtd_trans, int pos, int *tarefa1, int *tarefa2, 
             if(i == pos_aux && cont_trans < qtd_trans){
                 tempo += trans1[pos_aux];
                 cout << "trans1[" << pos_aux << "] = " << trans1[pos_aux] << endl;
-                pos_aux++; cont_trans++;
+                pos_aux+=pulo_aux;
+                if(pulo > 1) pulo_aux--; 
+                cont_trans++;
                 linha = 2;
             }
         }
@@ -28,7 +31,9 @@ int menorTempo(int qtd_est, int qtd_trans, int pos, int *tarefa1, int *tarefa2, 
             if(i == pos_aux && cont_trans < qtd_trans){
                 tempo += trans2[pos_aux];
                 cout << "trans2[" << pos_aux << "] = " << trans2[pos_aux] << endl;
-                pos_aux++; cont_trans++;
+                pos_aux+=pulo_aux;
+                if(pulo > 1) pulo_aux--; 
+                cont_trans++;
                 linha = 1;
             }
         }
@@ -42,8 +47,9 @@ int menorTempo(int qtd_est, int qtd_trans, int pos, int *tarefa1, int *tarefa2, 
     if(tempo < menor) menor = tempo;
 
     if(qtd_trans == 0) return menor;
-    if(qtd_trans+pos == qtd_est-1) return menorTempo(qtd_est, qtd_trans-1, 0, tarefa1, tarefa2, trans1, trans2, inicio, final, menor);
-    return menorTempo(qtd_est, qtd_trans, pos+1, tarefa1, tarefa2, trans1, trans2, inicio, final, menor);
+    if(qtd_trans+pos == qtd_est-1) return menorTempo(qtd_est, qtd_trans-1, 0, 1, tarefa1, tarefa2, trans1, trans2, inicio, final, menor);
+    if(qtd_trans == 1 || pos+pulo == qtd_est-2) return menorTempo(qtd_est, qtd_trans, pos+1, 1, tarefa1, tarefa2, trans1, trans2, inicio, final, menor);
+    return menorTempo(qtd_est, qtd_trans, pos, pulo+1, tarefa1, tarefa2, trans1, trans2, inicio, final, menor);
 
 }
 
@@ -84,8 +90,8 @@ int main(){
             cin >> final[l];
         }
 
-        int menor1 = menorTempo(qtd_est, qtd_est-1, 0, tarefa1, tarefa2, trans1, trans2, inicio[0], final, 10000);
-        int menor2 = menorTempo(qtd_est, qtd_est-1, 0, tarefa1, tarefa2, trans1, trans2, inicio[1], final, 10000);
+        int menor1 = menorTempo(qtd_est, qtd_est-1, 0, 1, tarefa1, tarefa2, trans1, trans2, inicio[0], final, 10000);
+        int menor2 = menorTempo(qtd_est, qtd_est-1, 0, 1, tarefa1, tarefa2, trans1, trans2, inicio[1], final, 10000);
 
         cout << endl << "Menor =";
 
