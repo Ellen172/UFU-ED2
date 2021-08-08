@@ -2,9 +2,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int menorTempo(int qtd_est, int qtd_trans, int pos, int pulo, int *tarefa1, int *tarefa2, int *trans1, int *trans2, int *inicio, int *final, int menor){
-    int tempo1=inicio[0];
-    int tempo2=inicio[1];
+int menorTempo(int qtd_est, int qtd_trans, int pos, int pulo, int *tarefa1, int *tarefa2, int *trans1, int *trans2, int inicio, int *final, int menor){
+    int tempo = inicio;
     int linha=0, i=0, pos_aux=pos;
 
     cout << "qtd de trans = " << qtd_trans << endl;
@@ -16,58 +15,30 @@ int menorTempo(int qtd_est, int qtd_trans, int pos, int pulo, int *tarefa1, int 
     while(i < qtd_est){
         if(i < qtd_trans){
             if(linha == 1){
-                tempo1 += tarefa1[i];
-                tempo1 += trans1[pos_aux];
+                tempo += tarefa1[i];
+                tempo += trans1[pos_aux];
                 pos_aux+=pulo;
                 linha = 2;
             }
             else{
-                tempo1 += tarefa2[i];
-                tempo1 += trans2[pos_aux];
+                tempo += tarefa2[i];
+                tempo += trans2[pos_aux];
                 pos_aux+=pulo;
                 linha = 1;
             }
         }
         else {
-            if(linha == 1) tempo1 += tarefa1[i];
-            else tempo1 += tarefa2[i];
+            if(linha == 1) tempo += tarefa1[i];
+            else tempo += tarefa2[i];
         }
         i++;
     }
-    if(linha == 1) tempo1 += final[0];
-    else tempo1 += final[1];
-    cout << "tempo 1 = " << tempo1 << endl;
-
-    // tempo na linha 2
-    linha = 2; i=0; pos_aux=pos;
-    while(i < qtd_est){
-        if(i < qtd_trans) {
-            if(linha == 1){
-                tempo2 += tarefa1[i];
-                tempo2 += trans1[pos_aux];
-                pos_aux+=pulo;
-                linha = 2;
-            }
-            else{
-                tempo2 += tarefa2[i];
-                tempo2 += trans2[pos_aux];
-                pos_aux+=pulo;
-                linha = 1;
-            }
-        }
-        else{
-            if(linha == 1) tempo2 += tarefa1[i];
-            else tempo2 += tarefa2[i];
-        }
-        i++;
-    }
-    if(linha == 1) tempo2 += final[0];
-    else tempo2 += final[1];
-    cout << "tempo 2 = " << tempo2 << endl;
+    if(linha == 1) tempo += final[0];
+    else tempo += final[1];
+    cout << "tempo 1 = " << tempo << endl;
 
     // definindo menor tempo
-    if(tempo1 < menor) menor = tempo1;
-    if(tempo2 < menor) menor = tempo2;
+    if(tempo < menor) menor = tempo;
 
     if(qtd_trans == 0) return menor;
     if(qtd_trans+pos == qtd_est-1) return menorTempo(qtd_est, qtd_trans-1, 0, 1, tarefa1, tarefa2, trans1, trans2, inicio, final, menor);
@@ -113,8 +84,13 @@ int main(){
             cin >> final[l];
         }
 
-        cout << endl << "Menor tempo = " << menorTempo(qtd_est, qtd_est-1, 0, 1, tarefa1, tarefa2, trans1, trans2, inicio, final, 10000) << endl;
+        int menor1 = menorTempo(qtd_est, qtd_est-1, 0, 1, tarefa1, tarefa2, trans1, trans2, inicio[0], final, 10000);
+        cout << endl << "Linha 01 = " << menor1 << endl << endl;
+        int menor2 = menorTempo(qtd_est, qtd_est-1, 0, 1, tarefa1, tarefa2, trans1, trans2, inicio[1], final, 10000);
+        cout << endl << "Linha 02 = " << menor2 << endl << endl;
 
+        if(menor1 < menor2) cout << "Menor = " << menor1 << endl;
+        else cout << "Menor = " << menor2 << endl;
 
         n--;
     }  
