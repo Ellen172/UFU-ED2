@@ -4,7 +4,7 @@ using namespace std;
 
 int menorTempo(int qtd_est, int qtd_trans, int pos, int *tarefa1, int *tarefa2, int *trans1, int *trans2, int inicio, int *final, int menor){
     int tempo=inicio;
-    int linha=0, i=0, pos_aux=pos;
+    int linha=0, i=0, pos_aux=pos, cont_trans=0;
 
     cout << "qtd de trans = " << qtd_trans << endl;
     cout << "pos = " << pos << endl;
@@ -12,32 +12,24 @@ int menorTempo(int qtd_est, int qtd_trans, int pos, int *tarefa1, int *tarefa2, 
     // tempo na linha 1
     linha = 1; i=0;
     while(i < qtd_est){
-        if(i < qtd_trans){
-            if(linha == 1){
-                tempo += tarefa1[i];
-                cout << "tarefa1[" << i << "] = " << tarefa1[i] << endl;
+        if(linha == 1){
+            tempo += tarefa1[i];
+            cout << "tarefa1[" << i << "] = " << tarefa1[i] << endl;
+            if(i == pos_aux && cont_trans < qtd_trans){
                 tempo += trans1[pos_aux];
                 cout << "trans1[" << pos_aux << "] = " << trans1[pos_aux] << endl;
-                pos_aux++;
+                pos_aux++; cont_trans++;
                 linha = 2;
             }
-            else{
-                tempo += tarefa2[i];
-                cout << "tarefa2[" << i << "] = " << tarefa2[i] << endl;
+        }
+        else{
+            tempo += tarefa2[i];
+            cout << "tarefa2[" << i << "] = " << tarefa2[i] << endl;
+            if(i == pos_aux && cont_trans < qtd_trans){
                 tempo += trans2[pos_aux];
                 cout << "trans2[" << pos_aux << "] = " << trans2[pos_aux] << endl;
-                pos_aux++;
+                pos_aux++; cont_trans++;
                 linha = 1;
-            }
-        }
-        else {
-            if(linha == 1) { 
-                tempo += tarefa1[i];
-                cout << "tarefa1[" << i << "] = " << tarefa1[i] << endl;
-            }
-            else {
-                tempo += tarefa2[i];
-                cout << "tarefa2[" << i << "] = " << tarefa2[i] << endl;
             }
         }
         i++;
