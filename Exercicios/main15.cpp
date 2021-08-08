@@ -20,7 +20,6 @@ int menorTempo(int qtd_est, int qtd_trans, int pos, int pulo, int *tarefa1, int 
                 tempo += trans1[pos_aux];
                 cout << "trans1[" << pos_aux << "] = " << trans1[pos_aux] << endl;
                 pos_aux+=pulo_aux;
-                if(pulo > 1) pulo_aux--; 
                 cont_trans++;
                 linha = 2;
             }
@@ -32,7 +31,6 @@ int menorTempo(int qtd_est, int qtd_trans, int pos, int pulo, int *tarefa1, int 
                 tempo += trans2[pos_aux];
                 cout << "trans2[" << pos_aux << "] = " << trans2[pos_aux] << endl;
                 pos_aux+=pulo_aux;
-                if(pulo > 1) pulo_aux--; 
                 cont_trans++;
                 linha = 1;
             }
