@@ -1,7 +1,6 @@
 #include <string.h>
-#include <stdlib.h>
-#include <bits/stdc++.h>
-using namespace std;
+#include <iostream>
+#include <cstdio>
 
 void qualLetra(int *alfa, char text, int maior, int menor, int pos){
     if(pos >= 25) return;
@@ -15,7 +14,7 @@ int main() {
     int nro, a=0;
     int alfa[30];
     char text[3000];
-    cin >> nro;
+    scanf("%d", &nro);
     gets(text); // armazena o enter do nro;
 
     for(int j=0; j<30; j++){ // zerando alfabeto;
@@ -31,10 +30,11 @@ int main() {
         nro--;
     }
 
-    for(int i=0; i<29; i++){
+    for(int i=0; i<30; i++){
         int maior = i;
 
-        for(int j=i+1; j<30; j++){ //localizar maior valor de alfa
+        for(int j=0; j<30; j++){ //localizar maior valor de alfa
+
             if(alfa[j] > alfa[maior]){
                 maior = j;
             }
@@ -44,8 +44,9 @@ int main() {
         }
 
         if(alfa[maior] > 0){
-            char aux = maior + 64; // nro pertencente a tabela ascii
-            cout << aux << " " << alfa[maior] << endl;;
+            char aux = maior + 65; // nro pertencente a tabela ascii
+            printf("%c %d\n", aux, alfa[maior]);
+            //cout << aux << " " << alfa[maior] << endl;
             alfa[maior] = 0;
         }
     }
