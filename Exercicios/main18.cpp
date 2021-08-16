@@ -15,15 +15,17 @@ int main() {
     int alfa[30];
     char text[3000];
     scanf("%d", &nro);
-    gets(text); // armazena o enter do nro;
+    //gets(text); // armazena o enter do nro;
 
     for(int j=0; j<30; j++){ // zerando alfabeto;
         alfa[j] = 0;
     }
 
     while(nro > 0){ 
-        gets(text); // lê cada frase
+        scanf("%[^\n]", text);
+        //gets(text); // lê cada frase
         for(int i=0; i<strlen(text); i++){
+            printf("%c\n", text[i]);
             qualLetra(alfa, text[i], 65, 97, 0);
         }
         
