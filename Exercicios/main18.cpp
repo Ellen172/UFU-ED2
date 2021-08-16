@@ -22,9 +22,7 @@ int main() {
 
     while(nro > 0){ 
         gets(text); // lê cada frase
-
         for(int i=0; i<strlen(text); i++){
-            cout << text[i] << endl;
             qualLetra(alfa, text[i], 65, 97, 0);
         }
         
@@ -49,14 +47,6 @@ int main() {
             alfa[maior] = 0;
         }
     }
-
-    // char maior_letra=65;
-    // for(int j=0; j<30; j++){ 
-    //     if(alfa[j] > 0){
-    //         cout << maior_letra << " = " << alfa[j] << endl;
-    //     }
-    //     maior_letra++;
-    // }
-
+    
     return 0;
 }
