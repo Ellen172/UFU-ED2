@@ -1,6 +1,8 @@
 #include <string.h>
 #include <iostream>
 #include <cstdio>
+#include <bits/stdc++.h>
+using namespace std;
 
 void qualLetra(int *alfa, char text, int maior, int menor, int pos){
     if(pos >= 25) return;
@@ -11,21 +13,27 @@ void qualLetra(int *alfa, char text, int maior, int menor, int pos){
 }
 
 int main() {
-    int nro, a=0;
+    int nro;
     int alfa[30];
-    char text[3000];
+    string text;
+    //char text[3000];
     scanf("%d", &nro);
-    //gets(text); // armazena o enter do nro;
+    getline(cin, text); // armazena o enter
 
     for(int j=0; j<30; j++){ // zerando alfabeto;
         alfa[j] = 0;
     }
 
     while(nro > 0){ 
-        scanf("%[^\n]", text);
-        //gets(text); // lê cada frase
-        for(int i=0; i<strlen(text); i++){
-            printf("%c\n", text[i]);
+        // lê cada frase
+        //scanf("%s[^\n]", text);
+        getline(cin, text);
+        //gets(text); 
+
+        int tam = text.size();
+
+        for(int i=0; i<tam; i++){
+            //printf("%c\n", text[i]);
             qualLetra(alfa, text[i], 65, 97, 0);
         }
         
