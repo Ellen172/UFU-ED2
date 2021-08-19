@@ -1,5 +1,14 @@
 #include <stdio.h>
 
+int resto (int nro, int div){
+    if(nro < 0) {
+        nro *= -1;
+        int mod = nro%div;
+        return mod*(-1);
+    }
+    return nro%div;
+}
+
 int main() {
     int cont=20;
 
@@ -19,17 +28,17 @@ int main() {
         for(int j=0; j<tam-1; j++){
             int pos=j;
             for(int k=j+1; k<tam; k++){
-                if( nro[k]%div < nro[pos]%div ){
+                if( resto(nro[k],div) < resto(nro[pos],div) ){
                     pos = k;
                 }
-                else if( nro[k]%div == nro[pos]%div ){
-                    if(nro[k]%2==0 && nro[pos]%2==0){
+                else if( resto(nro[k],div) == resto(nro[pos],div) ){
+                    if(resto(nro[k],2)==0 && resto(nro[pos],2)==0){
                         // numeros pares
                         if(nro[k] < nro[pos]) {
                             pos = k;
                         }
                     }
-                    else if (nro[k]%2!=0 && nro[pos]%2!=0){
+                    else if (resto(nro[k],2)!=0 && resto(nro[pos],2)!=0){
                         // numero impares
                         if(nro[k] > nro[pos]) { 
                             pos = k;
@@ -37,7 +46,7 @@ int main() {
                     }
                     else {
                         // um par e outro impar
-                        if(nro[k]%2!=0) {
+                        if(resto(nro[k],2)!=0) {
                             pos = k;
                         }
                     }
